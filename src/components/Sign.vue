@@ -2,7 +2,7 @@
   <div class="sign">
 
     <div id="triggers" v-if="isDev">
-      <button @click="rotate()">Rotate 90&deg;</button>
+      <button @click="rotate()">Rotate &minus;90&deg;</button>
       <button @click="trigger('light')" :disabled="isLoading">Light</button>
       <button @click="trigger('noise')" :disabled="isLoading">Noise</button>
       <button @click="trigger('motion')" :disabled="isLoading">Motion</button>
@@ -12,7 +12,7 @@
       <img v-if="ok" alt="Durchfahrt erlaubt" src="https://www.die-auto-welt.de/wp-content/uploads/2017/05/30-zone-ende.gif">
       
       <img v-if="!ok" alt="Durchfahrt verboten" src="https://www.die-auto-welt.de/wp-content/uploads/2017/05/verbot-fahrzeuge.gif">
-      <img v-if="!ok" alt="Anlieger frei" src="https://www.die-auto-welt.de/wp-content/uploads/2017/05/anlieger-frei.png">
+      <!-- <img v-if="!ok" alt="Anlieger frei" src="https://www.die-auto-welt.de/wp-content/uploads/2017/05/anlieger-frei.png"> -->
     </div>
 
   </div>
@@ -30,10 +30,10 @@ export default {
       isLoading: false,
       ok: true,
 
-      signRotation: -90,
+      signRotation: 0,
 
       signStyle: {
-        transform: "rotate(-90deg)"
+        transform: ""
       }
     };
   },
@@ -89,11 +89,17 @@ export default {
 </script>
 
 <style scoped>
+#triggers {
+  position: fixed;
+  z-index: 1;
+}
+
 #signs {
   text-align: center;
 }
 
 #signs img {
-  width: 97vh;
+  width: 100%;
+  height: 100%;
 }
 </style>
