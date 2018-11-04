@@ -47,7 +47,22 @@ export default {
           this.isLoading = false;
           this.ok = !this.ok;
         });
+    },
+
+    checkStatus() {
+      fetch("https://jsonplaceholder.typicode.com/todos/101")
+        .then(response => response.json())
+        .then(json => {
+          window.console.log("response", json);
+          this.isLoading = false;
+          this.ok = !this.ok;
+          setTimeout(this.checkStatus, 5000);
+        });
     }
+  },
+
+  created() {
+    setTimeout(this.checkStatus, 5000);
   }
 };
 </script>
