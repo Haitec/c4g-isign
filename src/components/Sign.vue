@@ -19,7 +19,7 @@
 </template>
 
 <script>
-const INTERVAL = 500000;
+const INTERVAL = 1 * 30 * 1000;
 
 export default {
   name: "Sign",
@@ -39,7 +39,7 @@ export default {
 
   methods: {
     rotate() {
-      if (this.signRotation < 270) {
+      if (this.signRotation == 0 || this.signRotation > -270) {
         this.signRotation -= 90;
       } else {
         this.signRotation = 0;
