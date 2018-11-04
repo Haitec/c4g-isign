@@ -1,7 +1,7 @@
 <template>
   <div class="sign">
 
-    <div id="triggers">
+    <div id="triggers" v-if="isDev">
       <button @click="rotate()">Rotate 90&deg;</button>
       <button @click="trigger('light')" :disabled="isLoading">Light</button>
       <button @click="trigger('noise')" :disabled="isLoading">Noise</button>
@@ -26,13 +26,14 @@ export default {
 
   data() {
     return {
+      isDev: false,
       isLoading: false,
       ok: true,
 
-      signRotation: 0,
+      signRotation: -90,
 
       signStyle: {
-        transform: ""
+        transform: "rotate(-90deg)"
       }
     };
   },
@@ -81,6 +82,8 @@ export default {
 
   created() {
     setTimeout(this.checkStatus, INTERVAL);
+
+    this.isDev = window.location.search.substr(1) == "dev";
   }
 };
 </script>
@@ -91,6 +94,6 @@ export default {
 }
 
 #signs img {
-  width: 50vw;
+  width: 97vh;
 }
 </style>
