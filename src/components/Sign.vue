@@ -2,12 +2,13 @@
   <div class="sign">
 
     <div id="triggers">
+      <button @click="rotate()">Rotate 90&deg;</button>
       <button @click="trigger('light')" :disabled="isLoading">Light</button>
       <button @click="trigger('noise')" :disabled="isLoading">Noise</button>
       <button @click="trigger('motion')" :disabled="isLoading">Motion</button>
     </div>
 
-    <div id="signs">
+    <div id="signs" :style="signStyle">
       <img v-if="ok" alt="Durchfahrt erlaubt" src="https://www.die-auto-welt.de/wp-content/uploads/2017/05/30-zone-ende.gif">
       
       <img v-if="!ok" alt="Durchfahrt verboten" src="https://www.die-auto-welt.de/wp-content/uploads/2017/05/verbot-fahrzeuge.gif">
@@ -18,17 +19,34 @@
 </template>
 
 <script>
+const INTERVAL = 500000;
+
 export default {
   name: "Sign",
 
   data() {
     return {
       isLoading: false,
-      ok: true
+      ok: true,
+
+      signRotation: 0,
+
+      signStyle: {
+        transform: ""
+      }
     };
   },
 
   methods: {
+    rotate() {
+      if (this.signRotation < 270) {
+        this.signRotation -= 90;
+      } else {
+        this.signRotation = 0;
+      }
+      this.signStyle.transform = "rotate(" + this.signRotation + "deg)";
+    },
+
     trigger(action) {
       window.console.log("triggered action: " + action);
       this.isLoading = true;
@@ -56,13 +74,13 @@ export default {
           window.console.log("response", json);
           this.isLoading = false;
           this.ok = !this.ok;
-          setTimeout(this.checkStatus, 5000);
+          setTimeout(this.checkStatus, INTERVAL);
         });
     }
   },
 
   created() {
-    setTimeout(this.checkStatus, 5000);
+    setTimeout(this.checkStatus, INTERVAL);
   }
 };
 </script>

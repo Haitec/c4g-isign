@@ -5,14 +5,14 @@
 </template>
 
 <script>
-import Sign from './components/Sign.vue'
+import Sign from "./components/Sign.vue";
 
 export default {
-  name: 'app',
+  name: "app",
   components: {
     Sign
   }
-}
+};
 </script>
 
 <style>
