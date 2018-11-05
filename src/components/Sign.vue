@@ -19,7 +19,7 @@
 </template>
 
 <script>
-const INTERVAL = 1 * 30 * 1000;
+const INTERVAL = 1 * 5 * 1000;
 
 export default {
   name: "Sign",
@@ -53,7 +53,7 @@ export default {
       this.isLoading = true;
       let data = { action: action };
 
-      fetch("https://jsonplaceholder.typicode.com/posts", {
+      fetch("/trigger", {
         method: "POST",
         headers: {
           "Content-Type": "application/json; charset=utf-8"
@@ -69,12 +69,12 @@ export default {
     },
 
     checkStatus() {
-      fetch("https://jsonplaceholder.typicode.com/todos/101")
+      fetch("/status/1")
         .then(response => response.json())
         .then(json => {
           window.console.log("response", json);
           this.isLoading = false;
-          this.ok = !this.ok;
+          this.ok = json.isOk;
           setTimeout(this.checkStatus, INTERVAL);
         });
     }
